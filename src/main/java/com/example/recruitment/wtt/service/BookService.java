@@ -11,7 +11,6 @@ import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -20,8 +19,9 @@ import java.util.stream.Collectors;
 @Service
 public class BookService {
     ObjectMapper objectMapper = new ObjectMapper();
-    ClassLoader classLoader = getClass().getClassLoader();
-    File file = new File(classLoader.getResource("books.json").getFile());
+   // ClassLoader classLoader = getClass().getClassLoader();
+   // File file = new File(classLoader.getResource("books.json").getFile());
+    File file = new File(System.getProperty("datasource"));
     JsonNode jsonNode = objectMapper.readTree(file);
     Book[] books = objectMapper.treeToValue(jsonNode.get("items"), Book[].class);
     List<Book> bookList = new ArrayList(Arrays.asList(books));
